@@ -2,12 +2,12 @@ from js import document, window
 from math import pi
 from random import random
 
-def circle(x,y,r):
+def circle(x, y, r):
   ctx.beginPath()
   ctx.arc(x, y, r, 0, pi * 2, True)
   ctx.fill()
 
-def rect(x,y,w,h):
+def rect(x, y, w, h):
   ctx.beginPath()
   ctx.rect(x,y,w,h)
   ctx.closePath()
