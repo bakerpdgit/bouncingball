@@ -65,7 +65,7 @@ def move_paddle(evt):
 
 def animate():
   
-  x, y, dx, dy = ball_settings
+  x, y, dx, dy = ball_settings  
 
   # change ball location
   x += dx
@@ -74,6 +74,7 @@ def animate():
   # update paddle x-coordinate
   paddle_settings[0] += paddle_settings[1]
   paddle_settings[1] = 0
+  paddle_x = paddle_settings[0]
   
   # clear screen
   reset()
@@ -98,7 +99,7 @@ def animate():
     y += dy
     
   # bouncing off bar
-  if x >= paddle_settings[0] and x <= x_bar + BAR_WIDTH and y >= (SCREEN_HEIGHT - 2 * BAR_HEIGHT):
+  if x >= paddle_x and x <= paddle_x + BAR_WIDTH and y >= (SCREEN_HEIGHT - 2 * BAR_HEIGHT):
     dy = -dy * (0.9 + 0.2 * random())
     y += dy
   
@@ -113,7 +114,7 @@ def animate():
     
   # draw paddle
   ctx.fillStyle = "#FF0000"
-  rect(paddle_settings[0], SCREEN_HEIGHT - 2 * BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT)
+  rect(paddle_x, SCREEN_HEIGHT - 2 * BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT)
   
   # update ball settings
   ball_settings[0] = x
