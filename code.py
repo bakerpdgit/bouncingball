@@ -93,7 +93,7 @@ y = 0
 dx = 2
 dy = 3
 
-blocks = [(300, 50)]
+blocks = [(300, 50), (300, 100)]
 
 x_bar = (WIDTH - BAR_WIDTH) / 2
 x_bar_change = 0
