@@ -19,6 +19,9 @@ BLOCK_HEIGHT = 40
 # GLOBAL VARIABLES
 ##############
 
+canvas = document.getElementById("canvas")
+ctx = canvas.getContext("2d")
+
 # coordinates of top left of each block
 blocks = [(300, 50), (300, 100), (150,50)]
 
@@ -69,8 +72,7 @@ def animate():
   paddle_settings[1] = 0
   
   # clear screen
-  ctx.fillStyle = "#FAF7F8"
-  rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+  reset()
 
   # draw green brick and check for brick hit
   ctx.fillStyle = "#00FF00"
@@ -114,9 +116,6 @@ def animate():
   ball_settings[1] = y
   ball_settings[2] = dx
   ball_settings[3] = dy
-
-canvas = document.getElementById("canvas")
-ctx = canvas.getContext("2d")
 
 reset()
 window.addEventListener('keydown', move_paddle, True)
