@@ -98,7 +98,7 @@ def animate():
     y += dy
     
   # bouncing off bar
-  if x >= x_bar and x <= x_bar + BAR_WIDTH and y >= (SCREEN_HEIGHT - 2 * BAR_HEIGHT):
+  if x >= paddle_settings[0] and x <= x_bar + BAR_WIDTH and y >= (SCREEN_HEIGHT - 2 * BAR_HEIGHT):
     dy = -dy * (0.9 + 0.2 * random())
     y += dy
   
