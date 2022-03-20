@@ -2,19 +2,6 @@ from js import document, window
 from math import pi
 from random import random
 
-#############
-# CONSTANTS
-############
-
-SCREEN_WIDTH = canvas.width
-SCREEN_HEIGHT = canvas.height
-RAD = 10
-BAR_WIDTH = 60
-BAR_HEIGHT = 10
-BAR_MOVE_STEP = 15
-BLOCK_WIDTH = 100
-BLOCK_HEIGHT = 40
-
 ##############
 # GLOBAL VARIABLES
 ##############
@@ -30,6 +17,19 @@ paddle_settings = [(SCREEN_WIDTH - BAR_WIDTH) // 2, 0]
 
 # ball settings: ball_x, ball_y, change_x, change_y]
 ball_settings = [0, 0, 2, 3]
+
+#############
+# CONSTANTS
+############
+
+SCREEN_WIDTH = canvas.width
+SCREEN_HEIGHT = canvas.height
+RAD = 10
+BAR_WIDTH = 60
+BAR_HEIGHT = 10
+BAR_MOVE_STEP = 15
+BLOCK_WIDTH = 100
+BLOCK_HEIGHT = 40
 
 #############
 # SUBPROGRAMS
