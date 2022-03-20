@@ -89,7 +89,7 @@ def animate():
         rect(a, b, BLOCK_WIDTH, BLOCK_HEIGHT) 
    
   # bouncing off edge
-  if x > WIDTH or x < 0:
+  if x > SCREEN_WIDTH or x < 0:
     dx = -dx
     x += dx
   
@@ -103,7 +103,7 @@ def animate():
     y += dy
   
   # check for lost game
-  if y > HEIGHT:
+  if y > SCREEN_HEIGHT:
     print("Game Over")
     window.clearInterval(intervalHandle)  
   
