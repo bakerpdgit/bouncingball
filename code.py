@@ -2,6 +2,36 @@ from js import document, window
 from math import pi
 from random import random
 
+#############
+# CONSTANTS
+############
+
+SCREEN_WIDTH = canvas.width
+SCREEN_HEIGHT = canvas.height
+RAD = 10
+BAR_WIDTH = 60
+BAR_HEIGHT = 10
+BAR_MOVE_STEP = 15
+BLOCK_WIDTH = 100
+BLOCK_HEIGHT = 40
+
+##############
+# GLOBAL VARIABLES
+##############
+
+# coordinates of top left of each block
+blocks = [(300, 50), (300, 100), (150,50)]
+
+# paddle settings:  bar_left_coordinate, next_change
+paddle_settings = [(SCREEN_WIDTH - BAR_WIDTH) // 2, 0]
+
+# ball settings: ball_x, ball_y, change_x, change_y]
+ball_settings = [0, 0, 2, 3]
+
+#############
+# SUBPROGRAMS
+#############
+
 def circle(x, y, r):
   ctx.beginPath()
   ctx.arc(x, y, r, 0, pi * 2, True)
@@ -15,33 +45,37 @@ def rect(x, y, w, h):
 
 def reset():
   ctx.fillStyle = "#FAF7F8"
-  rect(0, 0, WIDTH, HEIGHT)
+  rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def move_paddle(evt):
-    global x_bar_change
     # print(evt.keyCode)
     if evt.keyCode == 39:
-        x_bar_change = 15
+        paddle_settings[1] = BAR_MOVE_STEP
     elif evt.keyCode == 37:
-        x_bar_change = -15        
+        paddle_settings[1] = -BAR_MOVE_STEP        
     else:
         print("key not known")
 
 def animate():
-    
-  global x, y, dx, dy
-  global x_bar, x_bar_change
   
-  x_bar += x_bar_change
+  x, y, dx, dy = ball_settings
+
+  # change ball location
+  x += dx
+  y += dy
+  
+  # update paddle x-coordinate
+  paddle_settings[0] += paddle_settings[1]
+  paddle_settings[1] = 0
   
   # clear screen
   ctx.fillStyle = "#FAF7F8"
-  rect(0,0,WIDTH,HEIGHT)
+  rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
   # draw green brick and check for brick hit
   ctx.fillStyle = "#00FF00"
   for a, b in blocks:
-    if x + dx >= a - RAD and x + dx <= a + BLOCK_WIDTH + RAD and y + dy >= b - RAD and y + dy <= b + BLOCK_HEIGHT + RAD:
+    if x >= a - RAD and x <= a + BLOCK_WIDTH + RAD and y >= b - RAD and y <= b + BLOCK_HEIGHT + RAD:
         blocks.remove((a, b))
         dy = - dy
         dy *= 0.9 + 0.2 * random()  
@@ -49,23 +83,23 @@ def animate():
         rect(a, b, BLOCK_WIDTH, BLOCK_HEIGHT) 
    
   # bouncing off edge
-  if x + dx > WIDTH or x + dx < 0:
+  if x > WIDTH or x < 0:
     dx = -dx
+    x += dx
   
-  if y + dy < 0:
+  if y < 0:
     dy = -dy
+    y += dy
     
   # bouncing off bar
-  if x + dx >= x_bar and x + dx <= x_bar + BAR_WIDTH and y + dy >= (HEIGHT - 2 * BAR_HEIGHT):
-    dy = -dy
-    dy *= 0.9 + 0.2 * random()
+  if x >= x_bar and x <= x_bar + BAR_WIDTH and y >= (SCREEN_HEIGHT - 2 * BAR_HEIGHT):
+    dy = -dy * (0.9 + 0.2 * random())
+    y += dy
   
-  if y + dy > HEIGHT:
+  # check for lost game
+  if y > HEIGHT:
     print("Game Over")
     window.clearInterval(intervalHandle)  
-
-  x += dx
-  y += dy
   
   # draw ball
   ctx.fillStyle = "#444444"   
@@ -73,30 +107,16 @@ def animate():
     
   # draw paddle
   ctx.fillStyle = "#FF0000"
-  rect(x_bar, HEIGHT - 2 * BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT)
+  rect(paddle_settings[0], SCREEN_HEIGHT - 2 * BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT)
   
-  x_bar_change = 0
+  # update ball settings
+  ball_settings[0] = x
+  ball_settings[1] = y
+  ball_settings[2] = dx
+  ball_settings[3] = dy
 
 canvas = document.getElementById("canvas")
 ctx = canvas.getContext("2d")
-
-WIDTH = canvas.width
-HEIGHT = canvas.height
-RAD = 10
-BAR_WIDTH = 60
-BAR_HEIGHT = 10
-BLOCK_WIDTH = 100
-BLOCK_HEIGHT = 40
-
-x = 0
-y = 0
-dx = 2
-dy = 3
-
-blocks = [(300, 50), (300, 100), (150,50)]
-
-x_bar = (WIDTH - BAR_WIDTH) / 2
-x_bar_change = 0
 
 reset()
 window.addEventListener('keydown', move_paddle, True)
