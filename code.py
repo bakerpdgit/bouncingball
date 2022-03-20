@@ -2,21 +2,12 @@ from js import document, window
 from math import pi
 from random import random
 
-##############
-# GLOBAL VARIABLES
-##############
+##################
+# HTML CANVAS VARIABLES
+##################
 
 canvas = document.getElementById("canvas")
 ctx = canvas.getContext("2d")
-
-# coordinates of top left of each block
-blocks = [(300, 50), (300, 100), (150,50)]
-
-# paddle settings:  bar_left_coordinate, next_change
-paddle_settings = [(SCREEN_WIDTH - BAR_WIDTH) // 2, 0]
-
-# ball settings: ball_x, ball_y, change_x, change_y]
-ball_settings = [0, 0, 2, 3]
 
 #############
 # CONSTANTS
@@ -30,6 +21,19 @@ BAR_HEIGHT = 10
 BAR_MOVE_STEP = 15
 BLOCK_WIDTH = 100
 BLOCK_HEIGHT = 40
+
+##############
+# GLOBAL VARIABLES
+##############
+
+# coordinates of top left of each block
+blocks = [(300, 50), (300, 100), (150,50)]
+
+# paddle settings:  bar_left_coordinate, next_change
+paddle_settings = [(SCREEN_WIDTH - BAR_WIDTH) // 2, 0]
+
+# ball settings: ball_x, ball_y, change_x, change_y]
+ball_settings = [0, 0, 2, 3]
 
 #############
 # SUBPROGRAMS
